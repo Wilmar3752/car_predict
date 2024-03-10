@@ -1,6 +1,8 @@
 import pandas as pd
 import boto3
 import os
+
+
 session = boto3.Session(profile_name='personal')
 
 # Crear un recurso de S3 usando la sesión
@@ -15,4 +17,6 @@ def download_files_from_s3(bucket_name, download_directory):
             print(f"Descargado: {local_file_path}")
 
 # Llama a la función para descargar los archivos
-download_files_from_s3('scraper-meli', 'data/raw')
+if __name__ == "__main__":
+    download_files_from_s3('scraper-meli', 'data/raw')
+
