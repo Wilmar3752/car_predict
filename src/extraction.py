@@ -1,13 +1,26 @@
 import pandas as pd
 import boto3
 import os
+from src.utils import load_config
+import logging
+import sys
+import argparse
 
+logging.basicConfig(
+    format="%(asctime)s %(levelname)s:%(name)s: %(message)s",
+    level=logging.INFO,
+    datefmt="%H:%M:%S",
+    stream=sys.stderr,
+)
+logger = logging.getLogger("extraction")
 
 session = boto3.Session(profile_name='personal')
 
 # Crear un recurso de S3 usando la sesión
 s3 = session.client('s3')
-def download_files_from_s3(bucket_name, download_directory):
+def download_files_from_s3(config):
+    bucket_name = config['extraction']['bucket_name']
+    download_directory = config['extraction']['download_directory']
     paginator = s3.get_paginator('list_objects_v2')
     for page in paginator.paginate(Bucket=bucket_name):
         for obj in page.get('Contents', []):
@@ -15,8 +28,14 @@ def download_files_from_s3(bucket_name, download_directory):
             os.makedirs(os.path.dirname(local_file_path), exist_ok=True)
             s3.download_file(bucket_name, obj['Key'], local_file_path)
             print(f"Descargado: {local_file_path}")
+def main(config_path):
+    config = load_config(config_path)
+    download_files_from_s3(config)
+
 
 # Llama a la función para descargar los archivos
 if __name__ == "__main__":
-    download_files_from_s3('scraper-meli', 'data/raw')
-
+    args_parser = argparse.ArgumentParser()
+    args_parser.add_argument("--config", dest="config", required=True)
+    args = args_parser.parse_args()
+    main(args.config)
