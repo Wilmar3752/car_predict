@@ -1,0 +1,7 @@
+extraction:
+  bucket_name: 'scraper-meli'
+  download_directory: data/raw
+concatenation: 
+  input_path: data/raw
+  output_path: data/raw
+  output_filename: car_raw.csv
