@@ -5,3 +5,13 @@ concatenation:
   input_path: data/raw
   output_path: data/raw
   output_filename: car_raw.csv
+featurize:
+  target_column: price
+  data_transformed_path: data/processed/
+  index_col: 0
+
+feature_engineering:
+  pipeline: models/feature_engineering_pipeline.joblib
+
+train:
+  final_model: models/final_pipeline.joblib
