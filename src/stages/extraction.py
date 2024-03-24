@@ -1,10 +1,13 @@
 import pandas as pd
 import boto3
 import os
+print(os.getcwd())
 from src.utils import load_config
+import os
 import logging
 import sys
 import argparse
+
 
 logging.basicConfig(
     format="%(asctime)s %(levelname)s:%(name)s: %(message)s",

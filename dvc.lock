@@ -1,0 +1,68 @@
+schema: '2.0'
+stages:
+  data_extraction:
+    cmd: python src/stages/extraction.py --config params.yaml
+    deps:
+    - path: src/stages/extraction.py
+      hash: md5
+      md5: 0a4b9e8ffa77a6ae06f83aec7655b74c
+      size: 1396
+    params:
+      params.yaml:
+        extraction:
+          bucket_name: scraper-meli
+          download_directory: data/raw
+  data_concatenation:
+    cmd: python src/stages/concatenation.py --config params.yaml
+    deps:
+    - path: src/stages/concatenation.py
+      hash: md5
+      md5: 0a09c56cdf0b31883e8f22da94ef5e82
+      size: 1762
+    params:
+      params.yaml:
+        concatenation:
+          input_path: data/raw
+          output_path: data/raw
+          output_filename: car_raw.csv
+    outs:
+    - path: data/raw/car_raw.csv
+      hash: md5
+      md5: 3f05fc780e5f7ea9528c1e2be83bec55
+      size: 922945
+  train:
+    cmd: python src/stages/train.py --config params.yaml
+    deps:
+    - path: data/processed/X_test.csv
+      hash: md5
+      md5: 1fad0f33de5cdbad2b062c8d714da470
+      size: 18711
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: f7950c6bb5616b5c350675076c3b622e
+      size: 167664
+    - path: models/feature_engineering_pipeline.joblib
+      hash: md5
+      md5: a7a731f25936b03449388b84b603c63f
+      size: 5491
+    - path: src/stages/train.py
+      hash: md5
+      md5: 5f14f0be6bd47a3e9c566c7adc6fb3d5
+      size: 1883
+    outs:
+    - path: models/final_pipeline.joblib
+      hash: md5
+      md5: 48bd41a7ea1ce7cf490b7e5156865f48
+      size: 398511
+  feature_engineering:
+    cmd: python src/stages/feature_engineering.py --config params.yaml
+    deps:
+    - path: data/raw/car_raw.csv
+      hash: md5
+      md5: 3f05fc780e5f7ea9528c1e2be83bec55
+      size: 922945
+    outs:
+    - path: models/feature_engineering_pipeline.joblib
+      hash: md5
+      md5: a7a731f25936b03449388b84b603c63f
+      size: 5491
