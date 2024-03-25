@@ -16,27 +16,37 @@ stages:
   feature_engineering:
     cmd: python src/stages/feature_engineering.py --config params.yaml
     deps:
+    - src/stages/feature_engineering.py
     - data/raw/car_raw.csv
     outs:
     - models/feature_engineering_pipeline.joblib
-
+    - data/processed/X_test.csv
+    - data/processed/X_train.csv
+    - data/processed/X_test_tranformed.csv
+    - data/processed/X_train_transformed.csv
+    params:
+    - feature_engineering
   train:
     cmd: python src/stages/train.py --config params.yaml
     deps:
     - src/stages/train.py
     - data/processed/X_test.csv
     - data/processed/X_train.csv
+    - data/processed/X_test_tranformed.csv
+    - data/processed/X_train_transformed.csv
     - models/feature_engineering_pipeline.joblib
     outs:
     - models/final_pipeline.joblib
-  # evaluate:
-  #   cmd: python src/stages/evaluate.py --config params.yaml
-  #   deps:
-  #     - src/stages/evaluate.py
-  #     - data/processed/X_transformed.csv
-  #   metrics:
-  #     - reports/metrics.json:
-  #         cache: false
-  #   plots:
-  #     - reports/clusters.png:
-  #         cache: false
+    params:
+    - train
+  evaluate:
+    cmd: python src/stages/evaluate.py --config params.yaml
+    deps:
+      - src/stages/evaluate.py
+      - data/processed/X_test.csv
+      - models/final_pipeline.joblib
+    metrics:
+      - experiments/metrics.json:
+          cache: false
+    params:
+    - evaluate
