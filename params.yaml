@@ -9,9 +9,20 @@ featurize:
   target_column: price
   data_transformed_path: data/processed/
   index_col: 0
-
 feature_engineering:
+  rarelabel_tol: 0.01
+  scaler_method: minmax
+  test_size: 0.1
   pipeline: models/feature_engineering_pipeline.joblib
-
 train:
   final_model: models/final_pipeline.joblib
+data_split:
+  testset_path: data/processed/X_test.csv
+base: 
+  reports_dir: experiments
+evaluate:
+  metrics: metrics.json
+  confusion_matrix_image: confusion_matrix.png
+  confusion_matrix_data: confusion_matrix_data.csv
+  roc_auc_plot: roc_curve.png
+  feature_importance_plot: feature_importance.png
