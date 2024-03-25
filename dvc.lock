@@ -35,24 +35,24 @@ stages:
     deps:
     - path: data/processed/X_test.csv
       hash: md5
-      md5: ee041354f007319e0180359ff5c5c5e4
-      size: 18712
+      md5: 6d919250f5024f0595b9566b5accf85c
+      size: 37448
     - path: data/processed/X_test_tranformed.csv
       hash: md5
-      md5: dc60d685e7f1924b47c8f582874df533
-      size: 41219
+      md5: bc4aa056cd039048d89be802e7bda17a
+      size: 85807
     - path: data/processed/X_train.csv
       hash: md5
-      md5: 94c0edde89cbdce8c284843fcd4febfd
-      size: 167956
+      md5: 060ae947d0f781e6f8e4a8c8c474b5c0
+      size: 149220
     - path: data/processed/X_train_transformed.csv
       hash: md5
-      md5: eecf224c11887a0be120bfc5428d6e2e
-      size: 369353
+      md5: 3c7e1fe548e755c8e5a422906eb4b534
+      size: 342716
     - path: models/feature_engineering_pipeline.joblib
       hash: md5
-      md5: 438e9e357c500df082fbdfb56c4a403e
-      size: 2925
+      md5: aa4c0151435040505d75c904ddef1ac5
+      size: 2733
     - path: src/stages/train.py
       hash: md5
       md5: e82b8b5ad5e8a9a8dfcb55740bb92967
@@ -64,8 +64,8 @@ stages:
     outs:
     - path: models/final_pipeline.joblib
       hash: md5
-      md5: 3c55915c2cf432d1dc72515545488287
-      size: 285102
+      md5: 7e5ef8122583477e482cff0cf4203d50
+      size: 284526
   feature_engineering:
     cmd: python src/stages/feature_engineering.py --config params.yaml
     deps:
@@ -81,41 +81,41 @@ stages:
       params.yaml:
         feature_engineering:
           rarelabel_tol: 0.01
-          scaler_method: minmax
-          test_size: 0.1
+          scaler_method: standard
+          test_size: 0.2
           pipeline: models/feature_engineering_pipeline.joblib
     outs:
     - path: data/processed/X_test.csv
       hash: md5
-      md5: ee041354f007319e0180359ff5c5c5e4
-      size: 18712
+      md5: 6d919250f5024f0595b9566b5accf85c
+      size: 37448
     - path: data/processed/X_test_tranformed.csv
       hash: md5
-      md5: dc60d685e7f1924b47c8f582874df533
-      size: 41219
+      md5: bc4aa056cd039048d89be802e7bda17a
+      size: 85807
     - path: data/processed/X_train.csv
       hash: md5
-      md5: 94c0edde89cbdce8c284843fcd4febfd
-      size: 167956
+      md5: 060ae947d0f781e6f8e4a8c8c474b5c0
+      size: 149220
     - path: data/processed/X_train_transformed.csv
       hash: md5
-      md5: eecf224c11887a0be120bfc5428d6e2e
-      size: 369353
+      md5: 3c7e1fe548e755c8e5a422906eb4b534
+      size: 342716
     - path: models/feature_engineering_pipeline.joblib
       hash: md5
-      md5: 438e9e357c500df082fbdfb56c4a403e
-      size: 2925
+      md5: aa4c0151435040505d75c904ddef1ac5
+      size: 2733
   evaluate:
     cmd: python src/stages/evaluate.py --config params.yaml
     deps:
     - path: data/processed/X_test.csv
       hash: md5
-      md5: ee041354f007319e0180359ff5c5c5e4
-      size: 18712
+      md5: 6d919250f5024f0595b9566b5accf85c
+      size: 37448
     - path: models/final_pipeline.joblib
       hash: md5
-      md5: 3c55915c2cf432d1dc72515545488287
-      size: 285102
+      md5: 7e5ef8122583477e482cff0cf4203d50
+      size: 284526
     - path: src/stages/evaluate.py
       hash: md5
       md5: 14ce6ade042b69ca8f9023dd33c52c94
@@ -131,5 +131,5 @@ stages:
     outs:
     - path: experiments/metrics.json
       hash: md5
-      md5: eeb3c802c19bf909dc4dca8250dbc087
-      size: 109
+      md5: de7ab705e9420978bb0541e216093dbc
+      size: 111
