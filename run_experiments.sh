@@ -5,5 +5,5 @@ dvc exp run -S 'feature_engineering.rarelabel_tol=0.001,0.01,0.1' \
             --queue
 echo 'Running all queued experiments'
 dvc queue start
-#echo 'Show all experiments by r2'
-#dvc exp show --sort-by r2 --sort-order desc
+echo 'Show all experiments by r2'
+dvc exp show --sort-by r2 --sort-order desc
