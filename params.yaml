@@ -10,8 +10,8 @@ featurize:
   data_transformed_path: data/processed/
   index_col: 0
 feature_engineering:
-  rarelabel_tol: 0.01
-  scaler_method: standard
+  rarelabel_tol: 0.001
+  scaler_method: minmax
   test_size: 0.2
   pipeline: models/feature_engineering_pipeline.joblib
 train:

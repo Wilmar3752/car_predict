@@ -7,3 +7,5 @@ DVC exp remove -A
 dvc queue remove --all
 
 dvc queue log -expid-
+
+dvc exp apply --expid
