@@ -9,3 +9,8 @@ dvc queue remove --all
 dvc queue log -expid-
 
 dvc exp apply --expid
+
+
+## set PWD as PYTHONPATH
+
+export PYTHONPATH=$PWD
