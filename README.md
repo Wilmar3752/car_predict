@@ -1,3 +1,13 @@
+---
+title: Car Predict
+emoji: 🐠
+colorFrom: red
+colorTo: gray
+sdk: docker
+pinned: false
+license: mit
+---
+
 # car_predict
 car_predict
 
@@ -14,3 +24,4 @@ dvc exp apply --expid
 ## set PWD as PYTHONPATH
 
 export PYTHONPATH=$PWD
+
