@@ -5,8 +5,8 @@ stages:
     deps:
     - path: src/stages/extraction.py
       hash: md5
-      md5: 0a4b9e8ffa77a6ae06f83aec7655b74c
-      size: 1396
+      md5: 6b6beb578782ee171b3b6047a6e2eb23
+      size: 1335
     params:
       params.yaml:
         extraction:
@@ -28,31 +28,31 @@ stages:
     outs:
     - path: data/raw/car_raw.csv
       hash: md5
-      md5: ef643bfd05044c9636a4987283468b07
-      size: 1092554
+      md5: 808df0b28acf09bbbf5afc92e8fc6737
+      size: 1404990
   train:
     cmd: python src/stages/train.py --config params.yaml
     deps:
     - path: data/processed/X_test.csv
       hash: md5
-      md5: 3c667ecfc4d22c8df8acd19e92f1de16
-      size: 44213
+      md5: 715803a8fa1978af5c436b30534075a4
+      size: 28767
     - path: data/processed/X_test_tranformed.csv
       hash: md5
-      md5: 2edb89411724247a8bf787a3eb71d19b
-      size: 88780
+      md5: 51f23c4b3675b8924c0e1ff4d61de164
+      size: 54780
     - path: data/processed/X_train.csv
       hash: md5
-      md5: 603b7df047c46c8dd9004445f17f6c46
-      size: 177269
+      md5: 3bd0e1d9c1bca20aad66eac58017868d
+      size: 257237
     - path: data/processed/X_train_transformed.csv
       hash: md5
-      md5: bc744276dfd6005c10e4b27ae35e7111
-      size: 354625
+      md5: be4c82ee053cef0276838eeedc1218b8
+      size: 493644
     - path: models/feature_engineering_pipeline.joblib
       hash: md5
-      md5: 7de923ce47c181889aac87bcfaa1dfc1
-      size: 4963
+      md5: 2095e146be26d076a9e6dd59c1835d2c
+      size: 5107
     - path: src/stages/train.py
       hash: md5
       md5: 6c0c23e887335cfc163a8f83cc27062c
@@ -64,15 +64,15 @@ stages:
     outs:
     - path: models/final_pipeline.joblib
       hash: md5
-      md5: 22e5d6135ccd433a0d128cc3d74bdc6f
-      size: 418784
+      md5: e353f1b503ae6027e819375c0588d144
+      size: 587744
   feature_engineering:
     cmd: python src/stages/feature_engineering.py --config params.yaml
     deps:
     - path: data/raw/car_raw.csv
       hash: md5
-      md5: ef643bfd05044c9636a4987283468b07
-      size: 1092554
+      md5: 808df0b28acf09bbbf5afc92e8fc6737
+      size: 1404990
     - path: src/stages/feature_engineering.py
       hash: md5
       md5: 6a333e110e9f76415be1b4d4ed44270e
@@ -82,40 +82,40 @@ stages:
         feature_engineering:
           rarelabel_tol: 0.001
           scaler_method: minmax
-          test_size: 0.2
+          test_size: 0.1
           pipeline: models/feature_engineering_pipeline.joblib
     outs:
     - path: data/processed/X_test.csv
       hash: md5
-      md5: 3c667ecfc4d22c8df8acd19e92f1de16
-      size: 44213
+      md5: 715803a8fa1978af5c436b30534075a4
+      size: 28767
     - path: data/processed/X_test_tranformed.csv
       hash: md5
-      md5: 2edb89411724247a8bf787a3eb71d19b
-      size: 88780
+      md5: 51f23c4b3675b8924c0e1ff4d61de164
+      size: 54780
     - path: data/processed/X_train.csv
       hash: md5
-      md5: 603b7df047c46c8dd9004445f17f6c46
-      size: 177269
+      md5: 3bd0e1d9c1bca20aad66eac58017868d
+      size: 257237
     - path: data/processed/X_train_transformed.csv
       hash: md5
-      md5: bc744276dfd6005c10e4b27ae35e7111
-      size: 354625
+      md5: be4c82ee053cef0276838eeedc1218b8
+      size: 493644
     - path: models/feature_engineering_pipeline.joblib
       hash: md5
-      md5: 7de923ce47c181889aac87bcfaa1dfc1
-      size: 4963
+      md5: 2095e146be26d076a9e6dd59c1835d2c
+      size: 5107
   evaluate:
     cmd: python src/stages/evaluate.py --config params.yaml
     deps:
     - path: data/processed/X_test.csv
       hash: md5
-      md5: 3c667ecfc4d22c8df8acd19e92f1de16
-      size: 44213
+      md5: 715803a8fa1978af5c436b30534075a4
+      size: 28767
     - path: models/final_pipeline.joblib
       hash: md5
-      md5: 22e5d6135ccd433a0d128cc3d74bdc6f
-      size: 418784
+      md5: e353f1b503ae6027e819375c0588d144
+      size: 587744
     - path: src/stages/evaluate.py
       hash: md5
       md5: 14ce6ade042b69ca8f9023dd33c52c94
@@ -131,5 +131,5 @@ stages:
     outs:
     - path: experiments/metrics.json
       hash: md5
-      md5: ddf454b06e7bcfd8bb3cce4331679195
+      md5: 7509cc78e5dcd397ee801d29f17825f6
       size: 110

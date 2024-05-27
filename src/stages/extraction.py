@@ -1,7 +1,6 @@
 import pandas as pd
 import boto3
 import os
-print(os.getcwd())
 from src.utils import load_config
 import os
 import logging
@@ -19,8 +18,8 @@ logger = logging.getLogger("extraction")
 
 session = boto3.Session(profile_name='personal')
 
-# Crear un recurso de S3 usando la sesión
 s3 = session.client('s3')
+
 def download_files_from_s3(config):
     bucket_name = config['extraction']['bucket_name']
     download_directory = config['extraction']['download_directory']
