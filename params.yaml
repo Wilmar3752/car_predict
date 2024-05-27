@@ -12,7 +12,7 @@ featurize:
 feature_engineering:
   rarelabel_tol: 0.001
   scaler_method: minmax
-  test_size: 0.2
+  test_size: 0.1
   pipeline: models/feature_engineering_pipeline.joblib
 train:
   final_model: models/final_pipeline.joblib
