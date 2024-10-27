@@ -25,6 +25,7 @@ def csv_concatenation(config):
         li.append(df)
 
     frame = pd.concat(li, axis=0, ignore_index=True).drop_duplicates(subset='id', keep='last')
+    frame['version'] = frame['product'].str.split(' ').str[2:5].str.join(' ')
     return frame
 
 def delete_unused_files(config):

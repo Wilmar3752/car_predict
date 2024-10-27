@@ -1,6 +1,7 @@
 import joblib
 import argparse
 from pycaret.regression import *
+from xgboost import XGBRegressor
 from typing import Text
 from src.utils import load_config, load_train_datasets
 import logging
@@ -32,7 +33,7 @@ def run_model_training(config_path: Text):
     logger.info('Comparing All Classification Models')
     best = compare_models(sort = 'r2')
     logger.info('Saving All Models Experiment')
-    best_tuned_model = tune_model(best)
+    best_tuned_model = tune_model(best, fold=5, n_iter=5)
     preprocess_pipeline.steps.append(('best_model',best_tuned_model))
     predictions = predict_model(best_tuned_model, X_test_transformed)
     #experiments = pull()
