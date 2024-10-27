@@ -5,3 +5,4 @@ pyyaml==6.0.1
 pycaret==3.3.0
 dvc==3.48.4
 feature-engine==1.7.0
+xgboost==2.1.2

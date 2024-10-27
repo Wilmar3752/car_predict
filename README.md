@@ -7,8 +7,8 @@ sdk: docker
 pinned: false
 license: mit
 ---
-# 
-# Car Predict
+
+## Car Predict
 Using Machine Learning to predict Vehicle prices in Colombia.
 
 ## Run locally

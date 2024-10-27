@@ -72,7 +72,7 @@ def _train_test_split(df, config):
     return X_train, X_test, y_train, y_test
 
 def _read_train_dataset(input_filename):
-    final_vars = ['price', 'antique', 'vehicle_make', 'vehicle_line', 'kilometraje', 'location_city', 'location_state']
+    final_vars = ['price', 'antique', 'vehicle_make', 'vehicle_line','version' ,'kilometraje', 'location_city', 'location_state']
     df = pd.read_csv(input_filename,index_col=0)
     df['year_created' ] = df['_created'].apply(lambda x: x[:4]).astype(int)
     df['antique'] = df['year_created'] - df['years']
