@@ -3,6 +3,6 @@ services:
  carpredict: 
   build: .
   ports:
-    - 7860:8080
+    - 7860:7860
   volumes:
     - .:/app
