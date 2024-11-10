@@ -34,19 +34,28 @@ def evaluate_model(config_path: Text) -> None:
 
     logger.info('Load test dataset')
     test_df = pd.read_csv(config['data_split']['testset_path'], index_col=config['featurize']['index_col'])
+    train_df = pd.read_csv(config['data_split']['trainset_path'], index_col=config['featurize']['index_col'])
 
     logger.info('Evaluate (build report)')
     target_column=config['featurize']['target_column']
     y_test = test_df.loc[:, target_column]
     X_test = test_df.drop(target_column, axis=1)
 
+    y_train = train_df.loc[:, target_column]
+    X_train = train_df.drop(target_column, axis=1)
+
     # Predicciones del modelo
     y_pred = model.predict(X_test)
+    y_pred_train = model.predict(X_train)
 
     # Métricas de regresión
     mse = mean_squared_error(y_test, y_pred)
     mae = mean_absolute_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
+
+    mse_train = mean_squared_error(y_train, y_pred_train)
+    mae_train = mean_absolute_error(y_train, y_pred_train)
+    r2_train = r2_score(y_train, y_pred_train)
 
     report = {
         'mse': mse,
@@ -54,7 +63,10 @@ def evaluate_model(config_path: Text) -> None:
         'r2': r2,
         'actual': y_test.tolist(),
         'predicted': y_pred.tolist(),
-        'model_name': model[-1].__class__.__name__
+        'model_name': model[-1].__class__.__name__,
+        'mse_train': mse_train,
+        'mae_train': mae_train,
+        'r2_train': r2_train
     }
 
     logger.info('Save metrics')
@@ -65,7 +77,8 @@ def evaluate_model(config_path: Text) -> None:
             'model_name': report['model_name'],
             'mse': report['mse'],
             'mae': report['mae'],
-            'r2': report['r2']
+            'r2': report['r2'],
+            'r2_train': report['r2_train']
         },
         fp=open(metrics_path, 'w')
     )

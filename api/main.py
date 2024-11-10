@@ -15,7 +15,6 @@ def predict(input: RequestBody):
         # preprocessing
     start = time.perf_counter_ns()
     df = prepare_model_input(input.model_dump(mode="json"))
-    print(df)
     end = time.perf_counter_ns()
     prediction = model.predict(df)
     preprocessing_time_ms = (end - start) / 1_000_000

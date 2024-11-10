@@ -8,8 +8,8 @@ class RequestBody(BaseModel):
     vehicle_line: str = "Cerato"
     version: str = "Pro 1.6 Sx"
     kilometraje: int =  50000
-    location_city: str = "Suba"
-    location_state: str = "Bogotá D.C."
+    #location_city: str = "Suba"
+    #location_state: str = "Bogotá D.C."
 
 
 class ResponseBody(BaseModel):

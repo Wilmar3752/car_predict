@@ -24,12 +24,19 @@ def download_files_from_s3(config):
     bucket_name = config['extraction']['bucket_name']
     download_directory = config['extraction']['download_directory']
     paginator = s3.get_paginator('list_objects_v2')
-    for page in paginator.paginate(Bucket=bucket_name):
+    operation_parameters = {'Bucket': bucket_name,
+                        'Prefix': 'carros/'}
+    for page in paginator.paginate(**operation_parameters):
         for obj in page.get('Contents', []):
             local_file_path = os.path.join(download_directory, obj['Key'])
             os.makedirs(os.path.dirname(local_file_path), exist_ok=True)
-            s3.download_file(bucket_name, obj['Key'], local_file_path)
-            print(f"Descargado: {local_file_path}")
+            try:
+                s3.download_file(bucket_name, obj['Key'], local_file_path)
+                print(f"Descargado: {local_file_path}")
+            except: 
+                print('Archivo no descargable')
+
+
 def main(config_path):
     config = load_config(config_path)
     download_files_from_s3(config)

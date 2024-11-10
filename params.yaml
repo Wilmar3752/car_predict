@@ -2,7 +2,7 @@ extraction:
   bucket_name: scraper-meli
   download_directory: data/raw
 concatenation:
-  input_path: data/raw
+  input_path: data/raw/carros
   output_path: data/raw
   output_filename: car_raw.csv
 featurize:
@@ -12,12 +12,13 @@ featurize:
 feature_engineering:
   rarelabel_tol: 0.001
   scaler_method: minmax
-  test_size: 0.2
+  test_size: 0.1
   pipeline: models/feature_engineering_pipeline.joblib
 train:
   final_model: models/final_pipeline.joblib
 data_split:
   testset_path: data/processed/X_test.csv
+  trainset_path: data/processed/X_train.csv
 base:
   reports_dir: experiments
 evaluate:
