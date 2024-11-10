@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.parquet
+
 # C extensions
 *.so
 *.csv
