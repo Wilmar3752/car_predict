@@ -28,6 +28,7 @@ def run_feature_engineering(config_path: Text):
     input_path = config['concatenation']['output_path']
     input_filename = input_path + "/" + config['concatenation']['output_filename']
     df = _read_train_dataset(input_filename)
+    df = _filter_brand_line(df, 3)
     X_train, X_test, y_train, y_test = _train_test_split(df, config)
 
     pipeline = make_pipeline(X_train, config)
@@ -79,8 +80,13 @@ def _read_train_dataset(input_filename):
     df = df[final_vars]
     return df
 # Function to run feature engineering
-
-    
+def _filter_brand_line(df, h):
+    df_tmp = df.copy()
+    df_tmp['brand-line'] = df_tmp['vehicle_make'] + df_tmp['vehicle_line'] + df_tmp['version']
+    freq  = df_tmp['brand-line'].value_counts()
+    lista = freq[freq>h].index.tolist()
+    df_tmp = df_tmp[df_tmp['brand-line'].isin(lista)]
+    return df_tmp
 # Main entry point
 if __name__ == '__main__':
     
