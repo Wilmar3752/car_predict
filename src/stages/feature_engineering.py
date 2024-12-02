@@ -86,6 +86,7 @@ def _filter_brand_line(df, h):
     freq  = df_tmp['brand-line'].value_counts()
     lista = freq[freq>h].index.tolist()
     df_tmp = df_tmp[df_tmp['brand-line'].isin(lista)]
+    df_tmp = df_tmp.drop(columns = 'brand-line')
     return df_tmp
 # Main entry point
 if __name__ == '__main__':
