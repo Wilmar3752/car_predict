@@ -55,7 +55,7 @@ def make_pipeline(df, config):
     # Initialize the FeatureEngineering object
     pipeline_steps = [
 
-        ('rare_label_encoder', RareLabelEncoder(variables=cat_vars, tol=config['feature_engineering']['rarelabel_tol'], n_categories=1)),
+       # ('rare_label_encoder', RareLabelEncoder(variables=cat_vars, tol=config['feature_engineering']['rarelabel_tol'], n_categories=1)),
         ('ordinal_encoder', OrdinalEncoder(variables=cat_vars)),
         ('scaler', ScalerDf(method=config['feature_engineering']['scaler_method']))
     
