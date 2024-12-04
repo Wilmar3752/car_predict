@@ -3,7 +3,7 @@ import yaml
 import logging
 import sys
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler, MaxAbsScaler, RobustScaler, PowerTransformer
 import pandas as pd
 
 
@@ -59,14 +59,22 @@ class ScalerDf(BaseEstimator, TransformerMixin):
         return X
 
     def fit(self, X, y=None):
-        if self.method == 'minmax':
+        if self.method == "minmax":
             self.scaler = MinMaxScaler()
-        elif self.method == 'standard':
+        elif self.method == "standard":
             self.scaler = StandardScaler()
-        elif self.method == 'none':
+        elif self.method == "maxabs":
+            self.scaler = MaxAbsScaler()
+        elif self.method == "robust":
+            self.scaler = RobustScaler()
+        elif self.method == "power":
+            self.scaler = PowerTransformer()
+        elif self.method == "none":
             return self
         else:
-            raise ValueError("Invalid scaling method. Supported methods are 'minmax', 'standard', and 'none'.")
+            raise ValueError(
+                "Invalid scaling method. Supported methods are 'minmax', 'standard', and 'none'."
+            )
 
         self.scaler.fit(X)
         return self
