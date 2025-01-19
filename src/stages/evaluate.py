@@ -3,7 +3,7 @@ import joblib
 import json
 import pandas as pd
 from pathlib import Path
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score, mean_absolute_percentage_error, root_mean_squared_error
 from typing import Text, Dict
 import numpy as np
 import yaml
@@ -51,6 +51,8 @@ def evaluate_model(config_path: Text) -> None:
     # Métricas de regresión
     mse = mean_squared_error(y_test, y_pred)
     mae = mean_absolute_error(y_test, y_pred)
+    mape = mean_absolute_percentage_error(y_test, y_pred)
+    rmse = root_mean_squared_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
 
     mse_train = mean_squared_error(y_train, y_pred_train)
@@ -60,6 +62,8 @@ def evaluate_model(config_path: Text) -> None:
     report = {
         'mse': mse,
         'mae': mae,
+        'mape': mape,
+        'rmse': rmse,
         'r2': r2,
         'actual': y_test.tolist(),
         'predicted': y_pred.tolist(),
@@ -75,8 +79,9 @@ def evaluate_model(config_path: Text) -> None:
     json.dump(
         obj={
             'model_name': report['model_name'],
-            'mse': report['mse'],
+            'rmse': report['rmse'],
             'mae': report['mae'],
+            'mape': report['mape'],
             'r2': report['r2'],
             'r2_train': report['r2_train']
         },

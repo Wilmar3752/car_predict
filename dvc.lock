@@ -28,31 +28,31 @@ stages:
     outs:
     - path: data/raw/car_raw.csv
       hash: md5
-      md5: e1f4d8d8e5f477b69fdca827d1bd1372
-      size: 8707811
+      md5: b943bf496bbec1e342995e9d478b80b1
+      size: 9523853
   train:
     cmd: python src/stages/train.py --config params.yaml
     deps:
     - path: data/processed/X_test.csv
       hash: md5
-      md5: 9ec6e8ca36650b88cb47482f9f0821ef
-      size: 89273
+      md5: a23447974cc9d5ebce5f2c3b65d421a8
+      size: 99268
     - path: data/processed/X_test_tranformed.csv
       hash: md5
-      md5: ac0aa63b16b0c6d2d83cace917190575
-      size: 198234
+      md5: e2f84daf4d14af9e89bb2f0f594b7c2b
+      size: 226376
     - path: data/processed/X_train.csv
       hash: md5
-      md5: eaa5c0944c9a3caddc2f174f06f42666
-      size: 803416
+      md5: 3c9117ee2aa5ccb6cce9711359558f63
+      size: 891619
     - path: data/processed/X_train_transformed.csv
       hash: md5
-      md5: 06656725a7517998de1764f4efa80b0e
-      size: 1786502
+      md5: fc1cbe7cba375671b8317ef9f0102eb4
+      size: 2037124
     - path: models/feature_engineering_pipeline.joblib
       hash: md5
-      md5: c5d553c12add0bc1a3b0dcc2eb44cdb7
-      size: 24923
+      md5: d679e15c07f4807cd6fbcdde82be2b14
+      size: 26535
     - path: src/stages/train.py
       hash: md5
       md5: 939652888d7f5cccf41c3a222be18b5e
@@ -64,15 +64,15 @@ stages:
     outs:
     - path: models/final_pipeline.joblib
       hash: md5
-      md5: fbdfd28200c0d00f74a77a6752ce9d8a
-      size: 211590
+      md5: 67f7d74dc652d54600f6a84834b61de5
+      size: 312154
   feature_engineering:
     cmd: python src/stages/feature_engineering.py --config params.yaml
     deps:
     - path: data/raw/car_raw.csv
       hash: md5
-      md5: e1f4d8d8e5f477b69fdca827d1bd1372
-      size: 8707811
+      md5: b943bf496bbec1e342995e9d478b80b1
+      size: 9523853
     - path: src/stages/feature_engineering.py
       hash: md5
       md5: 8f456709b158fc9466e0a9f6d9827659
@@ -80,46 +80,46 @@ stages:
     params:
       params.yaml:
         feature_engineering:
-          rarelabel_tol: 0.001
-          scaler_method: minmax
+          rarelabel_tol: 0.01
+          scaler_method: power
           test_size: 0.1
           pipeline: models/feature_engineering_pipeline.joblib
     outs:
     - path: data/processed/X_test.csv
       hash: md5
-      md5: 9ec6e8ca36650b88cb47482f9f0821ef
-      size: 89273
+      md5: a23447974cc9d5ebce5f2c3b65d421a8
+      size: 99268
     - path: data/processed/X_test_tranformed.csv
       hash: md5
-      md5: ac0aa63b16b0c6d2d83cace917190575
-      size: 198234
+      md5: e2f84daf4d14af9e89bb2f0f594b7c2b
+      size: 226376
     - path: data/processed/X_train.csv
       hash: md5
-      md5: eaa5c0944c9a3caddc2f174f06f42666
-      size: 803416
+      md5: 3c9117ee2aa5ccb6cce9711359558f63
+      size: 891619
     - path: data/processed/X_train_transformed.csv
       hash: md5
-      md5: 06656725a7517998de1764f4efa80b0e
-      size: 1786502
+      md5: fc1cbe7cba375671b8317ef9f0102eb4
+      size: 2037124
     - path: models/feature_engineering_pipeline.joblib
       hash: md5
-      md5: c5d553c12add0bc1a3b0dcc2eb44cdb7
-      size: 24923
+      md5: d679e15c07f4807cd6fbcdde82be2b14
+      size: 26535
   evaluate:
     cmd: python src/stages/evaluate.py --config params.yaml
     deps:
     - path: data/processed/X_test.csv
       hash: md5
-      md5: 9ec6e8ca36650b88cb47482f9f0821ef
-      size: 89273
+      md5: a23447974cc9d5ebce5f2c3b65d421a8
+      size: 99268
     - path: models/final_pipeline.joblib
       hash: md5
-      md5: fbdfd28200c0d00f74a77a6752ce9d8a
-      size: 211590
+      md5: 67f7d74dc652d54600f6a84834b61de5
+      size: 312154
     - path: src/stages/evaluate.py
       hash: md5
-      md5: b011553596ca667786963ade90dc9696
-      size: 3077
+      md5: 1b9059e6bbb61ae33498b053d16642b7
+      size: 3325
     params:
       params.yaml:
         evaluate:
@@ -131,5 +131,5 @@ stages:
     outs:
     - path: experiments/metrics.json
       hash: md5
-      md5: 3dc9edf2fc0fde869a04116d5c591e56
-      size: 154
+      md5: d235877cf74c8bca56287e3414e6ed21
+      size: 171
